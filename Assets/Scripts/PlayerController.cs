@@ -44,7 +44,6 @@ public class PlayerController : MonoBehaviour
         RotateCamera(lookInput);   
         if(IsGrounded()) Move(movementInput);
     }
-
     private void Move(Vector2 input)
     {
         _movementDiraction = input.x * transform.right + input.y * transform.forward;
