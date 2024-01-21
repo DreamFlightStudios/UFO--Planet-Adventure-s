@@ -205,7 +205,7 @@ MonoBehaviour:
   _jumpForce: 6
   _groundLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 55
   _sensivity: 20
   _minMaxRotationX: {x: -80, y: 80}
   _cameraContainer: {fileID: 1363505160}

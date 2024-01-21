@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
     private float _xRotation;
     private float _yRotation;
 
-    private Vector3 _movementDiraction;
+    private Vector3 _diraction;
 
     [Inject]
     private void Construct(PlayerInput playerInput) => _playerInput = playerInput;
@@ -44,10 +44,11 @@ public class PlayerController : MonoBehaviour
         RotateCamera(lookInput);   
         if(IsGrounded()) Move(movementInput);
     }
+
     private void Move(Vector2 input)
     {
-        _movementDiraction = input.x * transform.right + input.y * transform.forward;
-        _rigidbody.velocity = new Vector3(_movementDiraction.x, _rigidbody.velocity.y, _movementDiraction.z);
+        _diraction = input.x * transform.right + input.y * transform.forward;
+        _rigidbody.velocity = new Vector3(_diraction.x, _rigidbody.velocity.y, _diraction.z);
     }
 
     private void RotateCamera(Vector2 input)
@@ -70,6 +71,7 @@ public class PlayerController : MonoBehaviour
     private bool IsGrounded() => Physics.CheckSphere(_groundCheckPosition.position, 0.2f, _groundLayers);
 
     private void OnDisable() => _playerInput.PlayerActions.Jump.performed -= Jump;
+
     private void OnEnable() => _playerInput.PlayerActions.Jump.performed += Jump;
 
 }
