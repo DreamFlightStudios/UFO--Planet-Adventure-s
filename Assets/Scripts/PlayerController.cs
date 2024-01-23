@@ -36,23 +36,21 @@ public class PlayerController : MonoBehaviour
         Cursor.visible = false;
     }
 
-    private void Update()
-    {
-        Vector2 movementInput = _playerInput.PlayerActions.MovementInput.ReadValue<Vector2>() * _speed;
-        Vector2 lookInput = _playerInput.PlayerActions.LookInput.ReadValue<Vector2>() * _sensivity * Time.deltaTime;
+    private void Update() => RotateCamera();
+    private void FixedUpdate() { if (IsGrounded()) Move(); }
 
-        RotateCamera(lookInput);   
-        if(IsGrounded()) Move(movementInput);
-    }
-
-    private void Move(Vector2 input)
+    private void Move()
     {
+        Vector2 input = _playerInput.Actions.MovementInput.ReadValue<Vector2>() * _speed;
+
         _diraction = input.x * transform.right + input.y * transform.forward;
         _rigidbody.velocity = new Vector3(_diraction.x, _rigidbody.velocity.y, _diraction.z);
     }
 
-    private void RotateCamera(Vector2 input)
+    private void RotateCamera()
     {
+        Vector2 input = _playerInput.Actions.LookInput.ReadValue<Vector2>() * _sensivity * Time.fixedDeltaTime;
+
         _xRotation -= input.y;
         _yRotation += input.x;
 
@@ -69,9 +67,6 @@ public class PlayerController : MonoBehaviour
     }
 
     private bool IsGrounded() => Physics.CheckSphere(_groundCheckPosition.position, 0.2f, _groundLayers);
-
-    private void OnDisable() => _playerInput.PlayerActions.Jump.performed -= Jump;
-
-    private void OnEnable() => _playerInput.PlayerActions.Jump.performed += Jump;
-
+    private void OnDisable() => _playerInput.Actions.Jump.performed -= Jump;
+    private void OnEnable() => _playerInput.Actions.Jump.performed += Jump;
 }
