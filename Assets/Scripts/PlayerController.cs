@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
 
     private void RotateCamera()
     {
-        Vector2 input = _playerInput.Actions.LookInput.ReadValue<Vector2>() * _sensivity * Time.fixedDeltaTime;
+        Vector2 input = _playerInput.Actions.LookInput.ReadValue<Vector2>() * _sensivity * Time.deltaTime;
 
         _xRotation -= input.y;
         _yRotation += input.x;
