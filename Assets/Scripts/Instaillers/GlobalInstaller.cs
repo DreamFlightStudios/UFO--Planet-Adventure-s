@@ -1,11 +1,19 @@
+using Core.ResourceSystem;
 using Zenject;
 
-public class GlobalInstaller : MonoInstaller<GlobalInstaller>
+namespace Instaillers
 {
-    public override void InstallBindings()
+    public class GlobalInstaller : MonoInstaller<GlobalInstaller>
     {
-        PlayerInput playerInput = new PlayerInput();
-        playerInput.Enable();
-        Container.Bind<PlayerInput>().FromInstance(playerInput).AsSingle();
+        public override async void InstallBindings()
+        {
+            AssetProvider assetProvider = new();
+            await assetProvider.Init();
+            Container.Bind<AssetProvider>().FromInstance(assetProvider).AsSingle();
+        
+            PlayerInput playerInput = new();
+            playerInput.Enable();
+            Container.Bind<PlayerInput>().FromInstance(playerInput).AsSingle();
+        }
     }
 }
