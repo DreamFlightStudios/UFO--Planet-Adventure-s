@@ -8,14 +8,7 @@ namespace Core.ResourceSystem
         private readonly ResourceContainer _resourceContainer = new();
         private readonly AssetLoader _assetLoader = new();
         
-        private bool _isInitialized;
         private bool _disposed;
-        
-        public async Task Init()
-        {
-            await _assetLoader.Init();
-            _isInitialized = true;
-        }
 
         public async Task<object> GetAsset(string id)
         {
@@ -59,14 +52,10 @@ namespace Core.ResourceSystem
 
         public void Dispose()
         {
-            if (_isInitialized) ReleaseAllAssets();
+            ReleaseAllAssets();
             _disposed = true;
         }
 
-        private void RequireBeValid()
-        {
-            if (_disposed) throw new ObjectDisposedException(nameof(AssetProvider));
-            if (!_isInitialized) throw new InvalidOperationException($"{nameof(AssetProvider)} is not initialized");
-        }
+        private void RequireBeValid() { if (_disposed) throw new ObjectDisposedException(nameof(AssetProvider)); }
     }
 }

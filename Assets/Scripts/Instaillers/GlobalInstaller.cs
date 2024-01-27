@@ -5,11 +5,9 @@ namespace Instaillers
 {
     public class GlobalInstaller : MonoInstaller<GlobalInstaller>
     {
-        public override async void InstallBindings()
+        public override void InstallBindings()
         {
-            AssetProvider assetProvider = new();
-            await assetProvider.Init();
-            Container.Bind<AssetProvider>().FromInstance(assetProvider).AsSingle();
+            Container.Bind<AssetProvider>().AsSingle();
         
             PlayerInput playerInput = new();
             playerInput.Enable();
