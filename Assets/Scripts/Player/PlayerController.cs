@@ -46,7 +46,7 @@ namespace Player
             Vector2 input = _playerInput.Actions.MovementInput.ReadValue<Vector2>() * _speed;
 
             _direction = input.x * transform.right + input.y * transform.forward;
-            _rigidbody.MovePosition(transform.position + _direction * Time.fixedDeltaTime);
+            _rigidbody.velocity = new Vector3(_direction.x, _rigidbody.velocity.y, _direction.z);
         }
 
         private void RotateCamera()
