@@ -1,35 +1,23 @@
+using Player;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.Audio;
 
 public class SettingsMenu : MonoBehaviour
 {
-    [Header("Sliders")]
-    [SerializeField] private Slider _sensivity;
-    [SerializeField] private Slider _volume;
+    [SerializeField] private AudioMixer _audioMixer;
+    [SerializeField] private PlayerController _playerController;
 
-    public void ApplySettings()
-    {
-        Settings.Sensivity = _sensivity.value;
-        Settings.Volume = _volume.value;
+    public void ApplySettings() => Debug.Log("Save");
 
-        ApplyVolume();
-    }
+    public void ResetSettings() => Debug.Log("Load");
 
-    public void ResetSettings()
-    {
-        _sensivity.value = Settings.Sensivity;
-        _volume.value = Settings.Volume;
+    public void SetVolume(float value) => _audioMixer.SetFloat("", value);
 
-        ApplyVolume();
-    }
+    public void SetSensivity(float value) => _playerController.Sensivity = value;
 
-    private void ApplyVolume()
-    {
-        AudioSource[] audioSources = FindObjectsOfType<AudioSource>();
-
-        foreach (AudioSource audioSource in audioSources)
-            audioSource.volume = Settings.Volume;
-    }
+    public void SetDrawing(float value) => Camera.main.farClipPlane = value;
 
     private void OnDisable() => ResetSettings();
+
+    private void OnEnable() => ResetSettings();
 }

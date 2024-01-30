@@ -12,7 +12,6 @@ namespace Player
         [SerializeField] private LayerMask _groundLayers;
 
         [Header("Camera Settings")]
-        [SerializeField] private float _sensivity;
         [SerializeField] private Vector2Int _minMaxRotationX;
 
         [Header("Transforms")]
@@ -28,6 +27,8 @@ namespace Player
         private float _yRotation;
 
         private Vector3 _direction;
+
+        public float Sensivity { get; set; }
 
         [Inject]
         private void Construct(PlayerInput playerInput) => _playerInput = playerInput;
@@ -51,7 +52,7 @@ namespace Player
 
         private void RotateCamera()
         {
-            Vector2 input = _playerInput.Actions.LookInput.ReadValue<Vector2>() * _sensivity * Time.deltaTime;
+            Vector2 input = _playerInput.Actions.LookInput.ReadValue<Vector2>() * Sensivity * Time.deltaTime;
 
             _xRotation -= input.y;
             _yRotation += input.x;

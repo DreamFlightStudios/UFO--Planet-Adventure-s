@@ -2,11 +2,10 @@ using UnityEngine;
 
 public class PauseMenu : MonoBehaviour
 {
-    [Header("PausePanals")]
-    [SerializeField] private GameObject _currentPanal;
-    [SerializeField] private GameObject[] _pausePanals;
+    [SerializeField] private GameObject _currentPanel;
+    [SerializeField] private GameObject[] _pausePanels;
 
-    private bool _isPauseMenuActive;
+    private bool _isPause;
 
     private void Update()
     {
@@ -16,32 +15,23 @@ public class PauseMenu : MonoBehaviour
 
     public void ChagePauseMenuState()
     {
-        _currentPanal = _pausePanals[0];
+        _currentPanel = _pausePanels[0];
 
-        _isPauseMenuActive = !_isPauseMenuActive;
-        _currentPanal.SetActive(_isPauseMenuActive);
+        foreach(var panal in _pausePanels) panal.SetActive(false);
 
-        if (_isPauseMenuActive)
-        {
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
-            Time.timeScale = 0;
-        }
-        else
-        {
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
-            Time.timeScale = 1;
+        _isPause = !_isPause;
+        _currentPanel.SetActive(_isPause);
 
-            foreach(var panal in _pausePanals) panal.SetActive(false);
-        }
+        Cursor.visible = _isPause;
+        Cursor.lockState = _isPause ? CursorLockMode.None : CursorLockMode.Locked;
+        Time.timeScale = _isPause ? 0 : 1;
     }
 
-    public void ChagePanal(GameObject selectedPanal)
+    public void ChangePanel(GameObject selectedPanal)
     {
-        _currentPanal.SetActive(false);
+        _currentPanel.SetActive(false);
         selectedPanal.SetActive(true);
 
-        _currentPanal = selectedPanal;
+        _currentPanel = selectedPanal;
     }
 }
