@@ -24,7 +24,6 @@ public class PauseMenu : MonoBehaviour
 
         Cursor.visible = _isPause;
         Cursor.lockState = _isPause ? CursorLockMode.None : CursorLockMode.Locked;
-        Time.timeScale = _isPause ? 0 : 1;
     }
 
     public void ChangePanel(GameObject selectedPanal)
