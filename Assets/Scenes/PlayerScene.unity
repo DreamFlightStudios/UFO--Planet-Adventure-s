@@ -2360,6 +2360,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _audioMixer: {fileID: 24100000, guid: 493c2ac5d6162c647b4fbdb4310dc12d, type: 2}
+  _camera: {fileID: 330585545}
 --- !u!114 &1279781066
 MonoBehaviour:
   m_ObjectHideFlags: 0

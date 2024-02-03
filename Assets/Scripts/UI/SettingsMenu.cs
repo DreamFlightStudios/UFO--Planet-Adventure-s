@@ -4,6 +4,7 @@ using UnityEngine.Audio;
 public class SettingsMenu : MonoBehaviour
 {
     [SerializeField] private AudioMixer _audioMixer;
+    [SerializeField] private Camera _camera;
 
     public void ApplySettings() => Debug.Log("Save");
 
@@ -11,7 +12,7 @@ public class SettingsMenu : MonoBehaviour
 
     public void SetVolume(float value) => _audioMixer.SetFloat("", value);
 
-    public void SetDrawing(float value) => Camera.main.farClipPlane = value;
+    public void SetDrawing(float value) => _camera.farClipPlane = value;
 
     private void OnDisable() => ResetSettings();
 
