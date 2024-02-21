@@ -14,6 +14,8 @@ public class SettingsMenu : MonoBehaviour
 
     public void SetDrawing(float value) => _camera.farClipPlane = value;
 
+    public void SetSensitivity(float value) => Debug.Log("Set Sensitivity");
+
     private void OnDisable() => ResetSettings();
 
     private void OnEnable() => ResetSettings();
