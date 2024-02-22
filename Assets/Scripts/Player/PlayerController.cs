@@ -2,18 +2,16 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
 
-namespace Player
-{
     public class PlayerController : MonoBehaviour
     {
         [Header("Movement Settings")]
         [SerializeField] private int _speed;
         [SerializeField] private int _jumpForce;
         [SerializeField] private LayerMask _groundLayers;
-
+        
         [Header("Camera Settings")]
-        [SerializeField] private float _sensivity;
         [SerializeField] private Vector2Int _minMaxRotationX;
+        [SerializeField] private float _sensivity;
 
         [Header("Transforms")]
         [SerializeField] private Transform _cameraContainer;
@@ -28,6 +26,7 @@ namespace Player
         private float _yRotation;
 
         private Vector3 _direction;
+
 
         [Inject]
         private void Construct(PlayerInput playerInput) => _playerInput = playerInput;
@@ -68,4 +67,3 @@ namespace Player
         private void OnDisable() => _playerInput.Actions.Jump.performed -= Jump;
         private void OnEnable() => _playerInput.Actions.Jump.performed += Jump;
     }
-}
